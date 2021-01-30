@@ -6,7 +6,8 @@ public class CarGeneral : MonoBehaviour
 {
     public float speed;
     public float turnSpeed;
-
+    public float tracksThreshold;
+    public float smokeThreshold;
     Rigidbody sphere;
     public float offset;
 
@@ -29,23 +30,28 @@ public class CarGeneral : MonoBehaviour
         transform.position = sphere.transform.position + (Vector3.up * offset);
         transform.Rotate(0, xAxis * turnSpeed * Time.deltaTime, 0, Space.World);
 
-        if(sphere.velocity.magnitude > 35 && xAxis != 0)
+        if (sphere.velocity.magnitude > tracksThreshold && (xAxis < -smokeThreshold || xAxis > smokeThreshold))
         {
             for(int i = 0; i < tracks.Length; i++)
             {
                 tracks[i].emitting = true;
                 
             }
-            smoke[0].Play();
-            smoke[1].Play();
+            if (smoke[0].isPlaying == false)
+            {
+                smoke[0].Play();
+                smoke[1].Play();
+            }
         }
         else
         {
             for (int i = 0; i < tracks.Length; i++)
             {
                 tracks[i].emitting = false;
-                //smoke[i].Stop();
+                
             }
+            smoke[0].Stop();
+            smoke[1].Stop();
         }
     }
 
