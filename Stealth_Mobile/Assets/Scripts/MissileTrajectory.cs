@@ -34,7 +34,10 @@ public class MissileTrajectory : MonoBehaviour
         {
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
-            Destroy(transform.Find("MissileShape").gameObject);
+            if (transform.Find("MissileShape"))
+            {
+                Destroy(transform.Find("MissileShape").gameObject);
+            }
             GetComponentInChildren<ParticleSystem>().Stop();
             GameObject am = Instantiate(afterMath, transform.position, Quaternion.identity);
             Destroy(am, 10);

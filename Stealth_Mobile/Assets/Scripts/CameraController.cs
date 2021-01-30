@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     public float lerping_speed;
     void Start()
     {
-        player = FindObjectOfType<BikeMovement>().transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -20,7 +20,8 @@ public class CameraController : MonoBehaviour
         {
             transform.position += ((player.position + offset) - transform.position) * lerping_speed * Time.fixedDeltaTime;
         }
+        /*
         float rotateDegrees = Input.GetAxis("Horizontal") + Input.GetAxis("Vertical");
-        transform.Rotate(Vector3.up * rotateDegrees);
+        transform.Rotate(Vector3.up * rotateDegrees);*/
     }
 }

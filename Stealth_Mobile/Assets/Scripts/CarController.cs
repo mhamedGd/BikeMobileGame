@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarNavigation : MonoBehaviour
+public class CarController : MonoBehaviour
 {
 
-    Transform player;
     CarGeneral carGeneral;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         carGeneral = GetComponent<CarGeneral>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 diretionNotNormalized = player.position - transform.position;
+        float yAxis = Input.GetAxis("Vertical");
+        float xAxis = Input.GetAxis("Horizontal") * yAxis;
+        float brakes = Input.GetButtonDown("Jump") ? 1 : 0;
 
+        carGeneral.SetInputs(yAxis, xAxis);
     }
 }
