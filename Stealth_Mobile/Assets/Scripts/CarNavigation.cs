@@ -9,8 +9,6 @@ public class CarNavigation : MonoBehaviour
 
     Transform player;
     CarGeneral carGeneral;
-    public float distanceMultiplier = 1;
-    public float distanceComparison = 20;
     public GameObject explosion;
     float zAxis = 0;
     float xAxis = 0;
@@ -31,23 +29,14 @@ public class CarNavigation : MonoBehaviour
 
 
         xAxis = dotRight < 0 ? -1 : 1;
+        zAxis = dot < 0 ? -1 : 1;
 
-        if (Vector3.Distance(player.position, transform.position) > 20)
-        {
-            zAxis = dot < 0 ? -1 : 1;
-        }
-        else
-        {
-            zAxis = dot < 0 ? -1 : 1;
-            zAxis *= distanceMultiplier;
-
-        }
         carGeneral.SetInputs(zAxis, dotRight);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Sphere" || other.tag != "Ground")
+        if (other.transform.tag != "Sphere")
         {
             Instantiate(explosion, transform.position, explosion.transform.rotation);
             Destroy(gameObject);

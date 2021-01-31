@@ -22,15 +22,18 @@ public class MissileTrajectory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Vector3 direction = player.position - transform.position + (Vector3.up * 0.15f);
         transform.forward = direction + Vector3.one * offset * (1 - offset);
         rb.velocity = transform.forward * speed;
+
+        transform.forward = rb.velocity.normalized;
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Missile")
+        if (other.tag != "Missile" || other.tag != "Vehicle")
         {
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
