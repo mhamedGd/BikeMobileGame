@@ -6,10 +6,11 @@ public class Shooter : MonoBehaviour
 {
 
     public GameObject missile;
-    public float missilesToShoot = 1;
+    public float missilesToShoot = 0;
     public float timer = 2;
     float currentTime;
     Transform player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +35,7 @@ public class Shooter : MonoBehaviour
     {
         for (int i = 0; i < missilesToShoot; i++)
         {
-            GameObject missileInstance =Instantiate(missile, transform.position + (Vector3.one * Random.Range(-20, 20)), missile.transform.rotation);
+            GameObject missileInstance = Instantiate(missile, transform.position + (Vector3.one * Random.Range(-20, 20)), missile.transform.rotation);
            // missileInstance.GetComponent<Rigidbody>().AddForce(GetForce() * missile.transform.forward, ForceMode.VelocityChange);
 
             yield return new WaitForEndOfFrame();

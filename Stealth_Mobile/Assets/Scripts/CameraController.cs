@@ -16,9 +16,12 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position != player.position + offset)
+        if (player != null)
         {
-            transform.position += ((player.position + offset) - transform.position) * lerping_speed * Time.deltaTime;
+            if (transform.position != player.position + offset)
+            {
+                transform.position += ((player.position + offset) - transform.position) * lerping_speed * Time.deltaTime;
+            }
         }
         /*
         float rotateDegrees = Input.GetAxis("Horizontal") + Input.GetAxis("Vertical");

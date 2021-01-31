@@ -36,9 +36,10 @@ public class CarNavigation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag != "Sphere")
+        if (other.tag != "Sphere" && other.tag != "Missile")
         {
-            Instantiate(explosion, transform.position, explosion.transform.rotation);
+            GameObject aftermath = Instantiate(explosion, transform.position, explosion.transform.rotation);
+            Destroy(aftermath, 5);
             Destroy(gameObject);
         }
     }
