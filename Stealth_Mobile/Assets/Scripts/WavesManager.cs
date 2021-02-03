@@ -11,26 +11,32 @@ public class WavesManager : MonoBehaviour
     public Spawner spawner;
     float timer = 20;
     public float currentTimer;
+
+    HighScoreManager highScoreManager;
     // Start is called before the first frame update
     void Start()
     {
+        highScoreManager = FindObjectOfType<HighScoreManager>();
         currentTimer = timer;
     }
 
     // Update is called once per frame
     void Update()
     {
-        wavesUI.text = waves.ToString();
-        if(currentTimer > 0)
+        if (highScoreManager.canStart)
         {
-            currentTimer -= Time.deltaTime;
-            return;
-        }
-        
-        waves += 1;
-        spawner.numberOfSpawns = waves;
-        shooter.missilesToShoot = waves;
+            wavesUI.text = waves.ToString();
+            if (currentTimer > 0)
+            {
+                currentTimer -= Time.deltaTime;
+                return;
+            }
 
-        currentTimer = timer;
+            waves += 1;
+            spawner.numberOfSpawns = waves;
+            shooter.missilesToShoot = waves;
+
+            currentTimer = timer;
+        }
     }
 }

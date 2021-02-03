@@ -11,9 +11,12 @@ public class Shooter : MonoBehaviour
     float currentTime;
     Transform player;
 
+
+    HighScoreManager highScoreManager;
     // Start is called before the first frame update
     void Start()
     {
+        highScoreManager = FindObjectOfType<HighScoreManager>();
         currentTime = timer;
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -21,14 +24,17 @@ public class Shooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentTime -= Time.deltaTime;
-        if(currentTime > 0)
+        if (highScoreManager.canStart)
         {
-            return;
+            currentTime -= Time.deltaTime;
+            if (currentTime > 0)
+            {
+                return;
+            }
+            currentTime = timer;
+            transform.Rotate(Vector3.up, Vector3.Angle(transform.position, player.position));
+            StartCoroutine("Shoot");
         }
-        currentTime = timer;
-        transform.Rotate(Vector3.up, Vector3.Angle(transform.position, player.position));
-        StartCoroutine("Shoot");
     }
 
     IEnumerator Shoot()

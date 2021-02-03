@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BikeMovement : MonoBehaviour
 {
@@ -11,13 +12,14 @@ public class BikeMovement : MonoBehaviour
     [HideInInspector] public float y_value;
     public GameObject[] frames;
     float cycle = 0;
-
+    public GameObject explosion;
     Animator animator;
     AudioSource cycle_sound;
     public AudioClip cycling;
     public AudioClip gliding;
     AudioSource bell;
     bool bell_ready = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +94,17 @@ public class BikeMovement : MonoBehaviour
             Timer.Create( () => {
                 bell_ready = true;
             }, 3f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Vehicle" || other.tag == "Missile")
+        {
+            
+            GameObject aftermath = Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(aftermath, 5);
+            Destroy(gameObject);
         }
     }
 }

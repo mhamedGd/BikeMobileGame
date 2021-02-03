@@ -8,22 +8,38 @@ public class Spawner : MonoBehaviour
     public GameObject spawn;
     public Transform[] spawnPoints;
     CarGeneral[] spawns;
+    public GameObject[] buildings;
+    public float numberOfBuildings;
+    public Transform ground;
+
+    HighScoreManager highScoreManager;
     // Start is called before the first frame update
     void Start()
     {
+        highScoreManager = FindObjectOfType<HighScoreManager>();
+        numberOfBuildings = Random.Range(0, 16);
+        for (int i = 0; i <= numberOfBuildings; i++)
+        {
+            Instantiate(buildings[Random.Range(0, buildings.Length)], new Vector3(Random.Range(-100, 100), 0, Random.Range(-100, 100)), Quaternion.EulerAngles(0, Random.Range(0, 360), 0));
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         spawns = FindObjectsOfType<CarGeneral>();
-        if (spawns.Length <= 0)
+        if (highScoreManager.canStart)
         {
-            for(int i = 0; i <= numberOfSpawns; i++)
+            if (spawns.Length <= 0)
             {
-                StartCoroutine("DelaySpawn", i);
+                for (int i = 0; i <= numberOfSpawns; i++)
+                {
+                    StartCoroutine("DelaySpawn", i);
+                }
             }
         }
+
+        
     }
 
     IEnumerator DelaySpawn(int i)

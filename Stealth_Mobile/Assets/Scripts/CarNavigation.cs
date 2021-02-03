@@ -22,7 +22,11 @@ public class CarNavigation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 diretionNotNormalized = player.position - transform.position;
+        Vector3 diretionNotNormalized = Vector3.zero;
+        if (player != null)
+        {
+            diretionNotNormalized = player.position - transform.position;
+        }
         float dot = Vector3.Dot(transform.forward, diretionNotNormalized.normalized);
         float dotRight = Vector3.Dot(transform.right, diretionNotNormalized.normalized);
 
@@ -31,7 +35,10 @@ public class CarNavigation : MonoBehaviour
         xAxis = dotRight < 0 ? -1 : 1;
         zAxis = dot < 0 ? -1 : 1;
 
-        carGeneral.SetInputs(zAxis, dotRight);
+        if (player != null)
+        {
+            carGeneral.SetInputs(zAxis, dotRight);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
