@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+
 
 public class BikeMovement : MonoBehaviour
 {
@@ -20,9 +19,11 @@ public class BikeMovement : MonoBehaviour
     AudioSource bell;
     bool bell_ready = true;
 
+    
     // Start is called before the first frame update
     void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         cycle_sound = GetComponent<AudioSource>();
@@ -105,6 +106,7 @@ public class BikeMovement : MonoBehaviour
             GameObject aftermath = Instantiate(explosion, transform.position, transform.rotation);
             Destroy(aftermath, 5);
             Destroy(gameObject);
+            
         }
     }
 }
